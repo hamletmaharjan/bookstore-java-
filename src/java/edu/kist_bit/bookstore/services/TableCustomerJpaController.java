@@ -19,12 +19,16 @@ import edu.kist_bit.bookstore.services.exceptions.IllegalOrphanException;
 import edu.kist_bit.bookstore.services.exceptions.NonexistentEntityException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 
 /**
  *
  * @author hams
  */
 public class TableCustomerJpaController implements Serializable {
+
+
+    
 
     public TableCustomerJpaController(EntityManagerFactory emf) {
         this.emf = emf;
@@ -253,5 +257,19 @@ public class TableCustomerJpaController implements Serializable {
             em.close();
         }
     }
+    
+    public TableCustomer checkLogin(String email) throws NonexistentEntityException {
+        EntityManager em = getEntityManager();
+        TableCustomer results = null;
+        try{
+            results = (TableCustomer) em.createNamedQuery("TableCustomer.findByCEmail").setParameter("email", email).getSingleResult();
+        }catch(NullPointerException | NoResultException e){
+            throw new NonexistentEntityException("the users with username"+email+"no longer eixst");
+        }
+             
+        return results;
+        
+    }
+   
     
 }

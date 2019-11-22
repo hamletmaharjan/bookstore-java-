@@ -5,10 +5,18 @@
  */
 package edu.kist_bit.bookstore.filter;
 
+import edu.kist_bit.bookstore.entity.TableCustomer;
+import edu.kist_bit.bookstore.services.TableCustomerJpaController;
+import edu.kist_bit.bookstore.services.exceptions.NonexistentEntityException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.persistence.EntityManagerFactory;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -16,20 +24,29 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.annotation.WebInitParam;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author hams
  */
-@WebFilter(filterName = "AuthenticationFilter", urlPatterns = {"/*"})
+@WebFilter(filterName = "AuthenticationFilter", urlPatterns = {"/*"},
+        initParams = @WebInitParam(name = "avoids-url", value = "/login.jsp,"
+                + ".css,"
+                + ".js,"
+                + "/index.jsp"))
 public class AuthenticationFilter implements Filter {
     
-    private static final boolean debug = true;
+    private static final boolean debug = false;
 
     // The filter configuration object we are associated with.  If
     // this value is null, this filter instance is not currently
     // configured. 
     private FilterConfig filterConfig = null;
+    private ArrayList<String> urlList;
     
     public AuthenticationFilter() {
     }    
@@ -104,9 +121,42 @@ public class AuthenticationFilter implements Filter {
             log("AuthenticationFilter:doFilter()");
         }
         
-        doBeforeProcessing(request, response);
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse resp = (HttpServletResponse) response;
+        String url = req.getServletPath();
+        boolean allowedRequest = false;
+        
+        for(String s: urlList){
+            if(url.contains(s)){
+                allowedRequest = true;
+                break;
+            }
+        }
         
         Throwable problem = null;
+        
+        if (!allowedRequest) {
+            HttpSession session = req.getSession(false);
+            if ((null == session || session.getAttribute("loggedInUser") == null) && url.equalsIgnoreCase("/dashboard")) {
+                if (req.getMethod().equalsIgnoreCase("POST")) {
+                    if(checkLogin(req, resp)){
+                        chain.doFilter(request, response);
+                        return;
+                    }else{
+                        req.setAttribute("errorMsg", "Invalid Email and Password");
+                        req.getRequestDispatcher("login.jsp").forward(request, response);
+                        //resp.sendRedirect("login.jsp");
+                        return;
+                    }
+                } else {
+                    resp.sendRedirect("login.jsp");
+                    return;
+                }
+            } else if (null == session || session.getAttribute("loggedInUser") == null) {
+                resp.sendRedirect("index.jsp");
+                return;
+            }
+        }
         try {
             chain.doFilter(request, response);
         } catch (Throwable t) {
@@ -159,6 +209,12 @@ public class AuthenticationFilter implements Filter {
      */
     public void init(FilterConfig filterConfig) {        
         this.filterConfig = filterConfig;
+        String urls = filterConfig.getInitParameter("avoids-url");
+        StringTokenizer token = new StringTokenizer(urls, ",");
+        urlList = new ArrayList<>();
+        while (token.hasMoreTokens()) {
+            urlList.add(token.nextToken());
+        }
         if (filterConfig != null) {
             if (debug) {                
                 log("AuthenticationFilter:Initializing filter");
@@ -226,6 +282,29 @@ public class AuthenticationFilter implements Filter {
     
     public void log(String msg) {
         filterConfig.getServletContext().log(msg);        
+    }
+
+    private boolean checkLogin(HttpServletRequest req, HttpServletResponse resp) {
+        EntityManagerFactory emf = (EntityManagerFactory) req.getServletContext().getAttribute("BookStoreemf");
+        boolean isUserLoggedIn = false;
+        TableCustomer customer = null;
+        TableCustomerJpaController tableCustomerJpaController = new TableCustomerJpaController(emf);
+        try {
+            customer = tableCustomerJpaController.checkLogin(req.getParameter("email"));
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(AuthenticationFilter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+         if(customer != null){
+            //if(BCrypt.checkpw(req.getParameter("password"),user.getPassword())){
+            if(req.getParameter("password").equals(customer.getCPassword())){
+                isUserLoggedIn = true;
+                HttpSession session = req.getSession();
+                session.setAttribute("loggedInUser", customer);
+            }
+        }
+        return isUserLoggedIn;
+        
     }
     
 }
