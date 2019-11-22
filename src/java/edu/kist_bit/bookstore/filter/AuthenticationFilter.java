@@ -5,7 +5,9 @@
  */
 package edu.kist_bit.bookstore.filter;
 
+import edu.kist_bit.bookstore.entity.TableAdmin;
 import edu.kist_bit.bookstore.entity.TableCustomer;
+import edu.kist_bit.bookstore.services.TableAdminJpaController;
 import edu.kist_bit.bookstore.services.TableCustomerJpaController;
 import edu.kist_bit.bookstore.services.exceptions.NonexistentEntityException;
 import java.io.IOException;
@@ -287,20 +289,20 @@ public class AuthenticationFilter implements Filter {
     private boolean checkLogin(HttpServletRequest req, HttpServletResponse resp) {
         EntityManagerFactory emf = (EntityManagerFactory) req.getServletContext().getAttribute("BookStoreemf");
         boolean isUserLoggedIn = false;
-        TableCustomer customer = null;
-        TableCustomerJpaController tableCustomerJpaController = new TableCustomerJpaController(emf);
+        TableAdmin admin = null;
+        TableAdminJpaController tableAdminJpaController = new TableAdminJpaController(emf);
         try {
-            customer = tableCustomerJpaController.checkLogin(req.getParameter("email"));
+            admin = tableAdminJpaController.checkLogin(req.getParameter("email"));
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(AuthenticationFilter.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-         if(customer != null){
+         if(admin != null){
             //if(BCrypt.checkpw(req.getParameter("password"),user.getPassword())){
-            if(req.getParameter("password").equals(customer.getCPassword())){
+            if(req.getParameter("password").equals(admin.getPassword())){
                 isUserLoggedIn = true;
                 HttpSession session = req.getSession();
-                session.setAttribute("loggedInUser", customer);
+                session.setAttribute("loggedInUser", admin);
             }
         }
         return isUserLoggedIn;
