@@ -176,10 +176,10 @@
                             <form class="login_form row" method="POST" action="dashboard">
                                 
                                 <div class="col-lg-12 form-group">
-                                    <input class="form-control" type="text" placeholder="User Name">
+                                    <input class="form-control" type="text" placeholder="User Name" name="email">
                                 </div>
                                 <div class="col-lg-12 form-group">
-                                    <input class="form-control" type="password" placeholder="Password">
+                                    <input class="form-control" type="password" placeholder="Password" name="password">
                                 </div>
                                 <div class="col-lg-12 form-group">
                                     <div class="creat_account">

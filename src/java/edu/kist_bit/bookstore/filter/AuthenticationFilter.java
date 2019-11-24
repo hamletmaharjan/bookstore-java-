@@ -254,14 +254,15 @@ public class AuthenticationFilter implements Filter {
         
          if(admin != null){
             //if(BCrypt.checkpw(req.getParameter("password"),user.getPassword())){
-            
+            //String temp = getMd5(req.getParameter("password"));
             if(req.getParameter("password").equals(admin.getPassword())){
+                
                 isUserLoggedIn = true;
                 HttpSession session = req.getSession();
                 session.setAttribute("loggedInUser", admin);
             }
         }
-        return true;
+        return isUserLoggedIn;
         
     }
     
