@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
@@ -141,14 +144,18 @@ public class AuthenticationFilter implements Filter {
             HttpSession session = req.getSession(false);
             if ((null == session || session.getAttribute("loggedInUser") == null) && url.equalsIgnoreCase("/dashboard")) {
                 if (req.getMethod().equalsIgnoreCase("POST")) {
-                    if(checkLogin(req, resp)){
-                        chain.doFilter(request, response);
-                        return;
-                    }else{
-                        req.setAttribute("errorMsg", "Invalid Email and Password");
-                        req.getRequestDispatcher("login.jsp").forward(request, response);
-                        //resp.sendRedirect("login.jsp");
-                        return;
+                    try {
+                        if(checkLogin(req, resp)){
+                            chain.doFilter(request, response);
+                            return;
+                        }else{
+                            req.setAttribute("errorMsg", "Invalid Email and Password");
+                            req.getRequestDispatcher("login.jsp").forward(request, response);
+                            //resp.sendRedirect("login.jsp");
+                            return;
+                        }
+                    } catch (NoSuchAlgorithmException ex) {
+                        Logger.getLogger(AuthenticationFilter.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else {
                     resp.sendRedirect("login.jsp");
@@ -169,7 +176,7 @@ public class AuthenticationFilter implements Filter {
             t.printStackTrace();
         }
         
-        doAfterProcessing(request, response);
+        //doAfterProcessing(request, response);
 
         // If there was a problem, we want to rethrow it if it is
         // a known type, otherwise log it.
@@ -286,7 +293,7 @@ public class AuthenticationFilter implements Filter {
         filterConfig.getServletContext().log(msg);        
     }
 
-    private boolean checkLogin(HttpServletRequest req, HttpServletResponse resp) {
+    private boolean checkLogin(HttpServletRequest req, HttpServletResponse resp) throws NoSuchAlgorithmException {
         EntityManagerFactory emf = (EntityManagerFactory) req.getServletContext().getAttribute("BookStoreemf");
         boolean isUserLoggedIn = false;
         TableAdmin admin = null;
@@ -299,14 +306,37 @@ public class AuthenticationFilter implements Filter {
         
          if(admin != null){
             //if(BCrypt.checkpw(req.getParameter("password"),user.getPassword())){
+            
             if(req.getParameter("password").equals(admin.getPassword())){
                 isUserLoggedIn = true;
                 HttpSession session = req.getSession();
                 session.setAttribute("loggedInUser", admin);
             }
         }
-        return isUserLoggedIn;
+        return false;
         
     }
     
+    public String getMd5(String input) throws NoSuchAlgorithmException 
+    { 
+        
+  
+            // Static getInstance method is called with hashing MD5 
+            MessageDigest md = MessageDigest.getInstance("MD5"); 
+  
+            // digest() method is called to calculate message digest 
+            //  of an input digest() return array of byte 
+            byte[] messageDigest = md.digest(input.getBytes()); 
+  
+            // Convert byte array into signum representation 
+            BigInteger no = new BigInteger(1, messageDigest); 
+  
+            // Convert message digest into hex value 
+            String hashtext = no.toString(16); 
+            while (hashtext.length() < 32) { 
+                hashtext = "0" + hashtext; 
+            } 
+            return hashtext; 
+        
+    }
 }
