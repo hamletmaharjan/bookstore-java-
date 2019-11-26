@@ -21,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author hams
  */
-@WebServlet(name = "DashboardController", urlPatterns = {"/dashboard"})
-public class DashboardController extends HttpServlet {
+@WebServlet(name = "IndexController", urlPatterns = {"/index"})
+public class IndexController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,24 +36,15 @@ public class DashboardController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        String indexURL = "/index.jsp";
+        
         EntityManagerFactory emf =  (EntityManagerFactory) getServletContext().getAttribute("BookStoreemf");
-        
-        String servlet = request.getServletPath();
-        String dispatchString = "";
-        String dashboardURL = "/WEB-INF/dashboard.jsp";
-        String loginURL = "login.jsp";
-        
-        //CategoryJpaController catg = new CategoryJpaController(emf);
-        //List<Category> category = catg.findCategoryEntities();
-        //request.setAttribute("Categories", category);
-        
-        
         TableBookJpaController tableBookJpaController = new TableBookJpaController(emf);
         List<TableBook> books = tableBookJpaController.findTableBookEntities();
         request.setAttribute("books", books);
         
-        
-        dispatchRequest(request, response, dashboardURL);
+        dispatchRequest(request, response, indexURL);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -95,9 +86,8 @@ public class DashboardController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void dispatchRequest(HttpServletRequest request, HttpServletResponse response, String dashboardURL) throws ServletException, IOException {
-        request.getRequestDispatcher(dashboardURL).forward(request, response);
-
+    private void dispatchRequest(HttpServletRequest request, HttpServletResponse response, String indexURL) throws ServletException, IOException {
+        request.getRequestDispatcher(indexURL).forward(request, response);
     }
 
 }

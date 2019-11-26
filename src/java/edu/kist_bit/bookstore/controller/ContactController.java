@@ -5,11 +5,8 @@
  */
 package edu.kist_bit.bookstore.controller;
 
-import edu.kist_bit.bookstore.entity.TableBook;
-import edu.kist_bit.bookstore.services.TableBookJpaController;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author hams
  */
-@WebServlet(name = "DashboardController", urlPatterns = {"/dashboard"})
-public class DashboardController extends HttpServlet {
+@WebServlet(name = "ContactController", urlPatterns = {"/contact"})
+public class ContactController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,26 +32,24 @@ public class DashboardController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+     response.setContentType("text/html;charset=UTF-8");
         EntityManagerFactory emf =  (EntityManagerFactory) getServletContext().getAttribute("BookStoreemf");
-        
-        String servlet = request.getServletPath();
-        String dispatchString = "";
-        String dashboardURL = "/WEB-INF/dashboard.jsp";
-        String loginURL = "login.jsp";
+       
+        String contacturl = "/WEB-INF/contact.jsp";
+       
         
         //CategoryJpaController catg = new CategoryJpaController(emf);
         //List<Category> category = catg.findCategoryEntities();
         //request.setAttribute("Categories", category);
         
         
-        TableBookJpaController tableBookJpaController = new TableBookJpaController(emf);
-        List<TableBook> books = tableBookJpaController.findTableBookEntities();
-        request.setAttribute("books", books);
         
+        dispatchRequest(request, response, contacturl);
         
-        dispatchRequest(request, response, dashboardURL);
     }
+
+    
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -95,9 +90,7 @@ public class DashboardController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void dispatchRequest(HttpServletRequest request, HttpServletResponse response, String dashboardURL) throws ServletException, IOException {
+private void dispatchRequest(HttpServletRequest request, HttpServletResponse response, String dashboardURL) throws ServletException, IOException {
         request.getRequestDispatcher(dashboardURL).forward(request, response);
-
     }
-
 }
