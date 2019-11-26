@@ -1,4 +1,4 @@
-package edu.kist_bit.hamrotarkaribazzar.utils;
+package edu.kist_bit.bookstore.utils;
 
 
 import java.io.UnsupportedEncodingException;

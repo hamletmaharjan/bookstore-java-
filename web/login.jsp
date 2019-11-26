@@ -162,7 +162,19 @@
             </div>
         </section>
         <!--================End Categories Banner Area =================-->
-        
+        <div class="row">
+        	<div class="col-lg-4">
+        	</div>
+        	<div class="col-lg-4">
+        	<c:set var="errmsg" scope="page" value="${errorMsg}"></c:set>
+                    <c:if test="${errmsg != null}">
+                        <p>${errmsg}</p>   
+                    </c:if>
+        	</div>
+        	<div class="col-lg-4">
+        	</div>
+        	
+        </div>
         <!--================login Area =================-->
         <section class="login_area p_100">
             <div class="container">

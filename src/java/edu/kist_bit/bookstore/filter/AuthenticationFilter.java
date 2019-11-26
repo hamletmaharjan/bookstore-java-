@@ -288,4 +288,29 @@ public class AuthenticationFilter implements Filter {
             return hashtext; 
         
     }
+    
+    private boolean checkCustomerLogin(HttpServletRequest req, HttpServletResponse resp) throws NoSuchAlgorithmException {
+        EntityManagerFactory emf = (EntityManagerFactory) req.getServletContext().getAttribute("BookStoreemf");
+        boolean isUserLoggedIn = false;
+        TableCustomer customer = null;
+        TableCustomerJpaController tableCustomerJpaController = new TableCustomerJpaController(emf);
+        try {
+            customer = tableCustomerJpaController.checkLogin(req.getParameter("username"));
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(AuthenticationFilter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+         if(customer != null){
+            //if(BCrypt.checkpw(req.getParameter("password"),user.getPassword())){
+            //String temp = getMd5(req.getParameter("password"));
+            if(req.getParameter("password").equals(customer.getCPassword())){
+                
+                isUserLoggedIn = true;
+                HttpSession session = req.getSession();
+                session.setAttribute("loggedInUser", customer);
+            }
+        }
+        return isUserLoggedIn;
+        
+    }
 }

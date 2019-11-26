@@ -1,4 +1,4 @@
-package edu.kist_bit.hamrotarkaribazzar.utils;
+package edu.kist_bit.bookstore.utils;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
