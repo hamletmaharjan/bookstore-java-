@@ -35,61 +35,50 @@
         </div>
         <!--================login Area =================-->
         <section class="login_area p_100">
+        	
+        	
             <div class="container">
                 <div class="login_inner">
                     <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                             <div class="login_title">
-                                <h2>log in your account</h2>
-                                <p>Log in to your account to discovery all great features in this template.</p>
+                                <h2>log in to your account</h2>
+                                
                             </div>
                             <form class="login_form row" method="POST" action="dashboard">
-                                
                                 <div class="col-lg-12 form-group">
-                                    <input class="form-control" type="text" placeholder="User Name" name="email">
+                                    <input class="form-control" type="text" name="email" placeholder="email">
                                 </div>
                                 <div class="col-lg-12 form-group">
-                                    <input class="form-control" type="password" placeholder="Password" name="password">
+                                    <input class="form-control" type="password" name="password"  placeholder="Password">
                                 </div>
                                 <div class="col-lg-12 form-group">
-                                    <div class="creat_account">
-                                        <input type="checkbox" id="f-option" name="selector">
-                                        <label for="f-option">Keep me logged in</label>
-                                        <div class="check"></div>
-                                    </div>
-                                    <h4>Forgot your password ?</h4>
-                                </div>
-                                <div class="col-lg-12 form-group">
-                                    <button type="submit" value="submit" class="btn update_btn form-control">Login</button>
+                                    <button type="submit" value="submit" name="loginbtn" class="btn update_btn form-control">Login</button>
                                 </div>
                             </form>
                         </div>
-                        <div class="col-lg-8">
+                        <div class="col-lg-6">
                             <div class="login_title">
                                 <h2>create account</h2>
-                                <p>Follow the steps below to create email account enjoy the great mail.com emailing experience. Vivamus tempus risus vel felis condimentum, non vehicula est iaculis.</p>
                             </div>
-                            <form class="login_form row">
-                                <div class="col-lg-6 form-group">
-                                    <input class="form-control" type="text" placeholder="Name">
+                            <form class="login_form row" method="POST" action="signup">
+                                <div class="col-lg-12 form-group">
+                                    <input class="form-control" type="text" name="c_name" placeholder="Name">
                                 </div>
-                                <div class="col-lg-6 form-group">
-                                    <input class="form-control" type="email" placeholder="Email">
+                                <div class="col-lg-12 form-group">
+                                    <input class="form-control" type="text" name="c_username" placeholder="User Name">
                                 </div>
-                                <div class="col-lg-6 form-group">
-                                    <input class="form-control" type="text" placeholder="User Name">
+                                <div class="col-lg-12 form-group">
+                                    <input class="form-control" type="email" name="c_email" placeholder="Email">
                                 </div>
-                                <div class="col-lg-6 form-group">
-                                    <input class="form-control" type="text" placeholder="Phone">
+                                <div class="col-lg-12 form-group">
+                                    <input class="form-control" type="text" name="c_phone" placeholder="Phone">
                                 </div>
-                                <div class="col-lg-6 form-group">
-                                    <input class="form-control" type="password" placeholder="Password">
+                                <div class="col-lg-12 form-group">
+                                    <input class="form-control" type="password" name="c_password" placeholder="Password">
                                 </div>
-                                <div class="col-lg-6 form-group">
-                                    <input class="form-control" type="password" placeholder="Re-Password">
-                                </div>
-                                <div class="col-lg-6 form-group">
-                                    <button type="submit" value="submit" class="btn subs_btn form-control">register now</button>
+                                <div class="col-lg-12 form-group">
+                                    <button type="submit" name="submitbtn" class="btn subs_btn form-control">register now</button>
                                 </div>
                             </form>
                         </div>

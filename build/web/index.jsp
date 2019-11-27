@@ -20,6 +20,7 @@
                     <h2>Our Latest Product</h2>
                 </div>
                 <div class="l_product_slider owl-carousel">
+                    
                     <div class="item">
                         <div class="l_product_item">
                             <div class="l_p_img">
@@ -100,7 +101,7 @@
                     <div class="item">
                         <div class="l_product_item">
                             <div class="l_p_img">
-                                <img src="img/product/l-product-1.jpg" alt="">
+                                <img src="uploads/${book.cover}" alt="" width="150px" height="350px">
                             </div>
                             <div class="l_p_text">
                                 <ul>
@@ -115,54 +116,7 @@
                     </div>
                 </c:forEach>
                     
-                    <div class="item">
-                        <div class="l_product_item">
-                            <div class="l_p_img">
-                                <img src="img/product/l-product-2.jpg" alt="">
-                            </div>
-                            <div class="l_p_text">
-                               <ul>
-                                    <li class="p_icon"><a href="#"><i class="icon_piechart"></i></a></li>
-                                    <li><a class="add_cart_btn" href="#">Add To Cart</a></li>
-                                    <li class="p_icon"><a href="#"><i class="icon_heart_alt"></i></a></li>
-                                </ul>
-                                <h4>Travel Bags</h4>
-                                <h5><del>$45.50</del>  $40</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="l_product_item">
-                            <div class="l_p_img">
-                                <img src="img/product/l-product-3.jpg" alt="">
-                            </div>
-                            <div class="l_p_text">
-                               <ul>
-                                    <li class="p_icon"><a href="#"><i class="icon_piechart"></i></a></li>
-                                    <li><a class="add_cart_btn" href="#">Add To Cart</a></li>
-                                    <li class="p_icon"><a href="#"><i class="icon_heart_alt"></i></a></li>
-                                </ul>
-                                <h4>Summer Dress</h4>
-                                <h5>$45.05</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="l_product_item">
-                            <div class="l_p_img">
-                                <img src="img/product/l-product-4.jpg" alt="">
-                            </div>
-                            <div class="l_p_text">
-                               <ul>
-                                    <li class="p_icon"><a href="#"><i class="icon_piechart"></i></a></li>
-                                    <li><a class="add_cart_btn" href="#">Add To Cart</a></li>
-                                    <li class="p_icon"><a href="#"><i class="icon_heart_alt"></i></a></li>
-                                </ul>
-                                <h4>Nike Shoes</h4>
-                                <h5><del>$130</del> $110</h5>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </section>
