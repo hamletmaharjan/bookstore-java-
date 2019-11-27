@@ -105,7 +105,7 @@
                                 Pages <i class="fa fa-angle-down" aria-hidden="true"></i>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li class="nav-item"><a class="nav-link" href="popularbooks.php">Popular Books</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="popularbooks">Popular Books</a></li>
                                     <li class="nav-item"><a class="nav-link" href="booklist?ref=lb">Latest Books</a></li>
                                     <li class="nav-item"><a class="nav-link" href="booklist?ref=cb">Cheapest Books</a></li>
                                     <li class="nav-item"><a class="nav-link" href="booklist?ref=ab">All Books</a></li>
@@ -125,7 +125,7 @@
                                     <li class="nav-item"><a class="nav-link" href="bookbycategories?ref=oth">Others</a></li>
                                 </ul>
                             </li>
-                            <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
+                            <li class="nav-item"><a class="nav-link" href="about">About</a></li>
                             <li class="nav-item"><a class="nav-link" href="contact">Contact</a></li>
                         </ul>
                     </div>

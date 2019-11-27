@@ -20,6 +20,7 @@ import edu.kist_bit.bookstore.services.exceptions.IllegalOrphanException;
 import edu.kist_bit.bookstore.services.exceptions.NonexistentEntityException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -281,6 +282,20 @@ public class TableBookJpaController implements Serializable {
         } finally {
             em.close();
         }
+    }
+    
+    public List<TableBook> getCheapestBooks(){
+        EntityManager em = getEntityManager();
+        List <TableBook> books = null;
+        try{
+            books = (List<TableBook>) em.createNamedQuery(""
+                + "SELECT * FROM TableBook inner join table_author on TableBook.author_id = TableAuthor.a_id where price<=1000").getResultList();
+        }catch(NoResultException ex){
+            books = new ArrayList();
+        }
+        
+        return books;
+        
     }
     
 }
