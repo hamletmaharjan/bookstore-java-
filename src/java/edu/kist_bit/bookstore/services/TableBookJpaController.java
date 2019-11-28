@@ -325,5 +325,17 @@ public class TableBookJpaController implements Serializable {
         
     }
     
+    public List<TableBook> findBooksByCategory(String cata){
+        EntityManager em = getEntityManager();
+        List <TableBook> books = null;
+        try{
+            books = (List<TableBook>) em.createNamedQuery("TableBook.findByCategories").setParameter("categories", cata).getResultList();
+        }catch(NoResultException ex){
+            books = new ArrayList();
+        }
+        
+        return books;
+        
+    }
     
 }

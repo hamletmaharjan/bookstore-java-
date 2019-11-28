@@ -14,10 +14,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1> crap
-        <% String str =(String) request.getParameter("ref");
-        out.print(str);
-        %> </h1>
+        
         <!--================Categories Product Area =================-->
         <section class="no_sidebar_2column_area">
             <div class="container">

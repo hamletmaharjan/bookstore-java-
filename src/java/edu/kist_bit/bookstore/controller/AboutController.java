@@ -7,7 +7,6 @@ package edu.kist_bit.bookstore.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.persistence.EntityManagerFactory;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author hams
  */
-@WebServlet(name = "ContactController", urlPatterns = {"/contact"})
-public class ContactController extends HttpServlet {
+@WebServlet(name = "AboutController", urlPatterns = {"/about"})
+public class AboutController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,24 +31,10 @@ public class ContactController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-     response.setContentType("text/html;charset=UTF-8");
-        EntityManagerFactory emf =  (EntityManagerFactory) getServletContext().getAttribute("BookStoreemf");
-       
-        String contacturl = "/WEB-INF/contact.jsp";
-       
-        
-        //CategoryJpaController catg = new CategoryJpaController(emf);
-        //List<Category> category = catg.findCategoryEntities();
-        //request.setAttribute("Categories", category);
-        
-        
-        
-        dispatchRequest(request, response, contacturl);
-        
+        response.setContentType("text/html;charset=UTF-8");
+        String aboutURL = "/WEB-INF/about.jsp";
+        dispatchRequest(request,response,aboutURL);
     }
-
-    
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -89,7 +74,9 @@ public class ContactController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    private void dispatchRequest(HttpServletRequest request, HttpServletResponse response, String dashboardURL) throws ServletException, IOException {
-        request.getRequestDispatcher(dashboardURL).forward(request, response);
+
+    private void dispatchRequest(HttpServletRequest request, HttpServletResponse response, String aboutURL) throws ServletException, IOException {
+        request.getRequestDispatcher(aboutURL).forward(request, response);
     }
+
 }

@@ -5,9 +5,13 @@
  */
 package edu.kist_bit.bookstore.controller;
 
+import edu.kist_bit.bookstore.entity.TableBook;
+import edu.kist_bit.bookstore.entity.TableOrder;
 import edu.kist_bit.bookstore.services.TableBookJpaController;
+import edu.kist_bit.bookstore.services.TableOrderJpaController;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,6 +42,40 @@ public class BookByCategoriesController extends HttpServlet {
         String bookbycatURL = "/WEB-INF/bookbycategories.jsp";
         
         TableBookJpaController tableBookJpaController = new TableBookJpaController(emf);
+        
+        String ref = request.getParameter("ref");
+        List<TableBook> books = null;
+        switch(ref){
+            case "aca":
+                books = tableBookJpaController.findBooksByCategory("academics");
+                break;
+                
+            case "bio":
+                books = tableBookJpaController.findBooksByCategory("biography");
+                break;
+            
+            case "fic":
+                books = tableBookJpaController.findBooksByCategory("fiction");
+                break;
+                
+            case "his":
+                books = tableBookJpaController.findBooksByCategory("history");
+                break;
+            case "med":
+                books = tableBookJpaController.findBooksByCategory("medical science");
+                break;
+            case "poe":
+                books = tableBookJpaController.findBooksByCategory("poetry");
+                break;
+            case "oth":
+                books = tableBookJpaController.findBooksByCategory("others");
+                break;
+                
+            default:
+                books = tableBookJpaController.findBooksByCategory("others");
+                break;
+        }
+        request.setAttribute("books", books);
         
         dispatchRequest(request, response, bookbycatURL);
     }
