@@ -18,6 +18,7 @@ import java.util.List;
 import edu.kist_bit.bookstore.entity.TableCart;
 import edu.kist_bit.bookstore.services.exceptions.IllegalOrphanException;
 import edu.kist_bit.bookstore.services.exceptions.NonexistentEntityException;
+import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -288,8 +289,8 @@ public class TableBookJpaController implements Serializable {
         EntityManager em = getEntityManager();
         List <TableBook> books = null;
         try{
-            books = (List<TableBook>) em.createNamedQuery(""
-                + "SELECT * FROM TableBook inner join table_author on TableBook.author_id = TableAuthor.a_id where price<=1000").getResultList();
+            books = (List<TableBook>) em.createNativeQuery(""
+                + "SELECT * FROM table_book inner join table_author on table_book.author_id = table_author.a_id WHERE price <= 1000").getResultList();
         }catch(NoResultException ex){
             books = new ArrayList();
         }
@@ -297,5 +298,32 @@ public class TableBookJpaController implements Serializable {
         return books;
         
     }
+    public List<TableBook> findCheapestBooks(){
+        EntityManager em = getEntityManager();
+        List <TableBook> books = null;
+        try{
+            books = (List<TableBook>) em.createNamedQuery("TableBook.findByCheapestBooks").setParameter("price", 1000).getResultList();
+        }catch(NoResultException ex){
+            books = new ArrayList();
+        }
+        
+        return books;
+        
+    }
+    public List<TableBook> findLatestBooks(){
+        long timestamp = 1532516399000l; // 25 July 2018 10:59:59 UTC
+        Date date = new Date(timestamp);
+        EntityManager em = getEntityManager();
+        List <TableBook> books = null;
+        try{
+            books = (List<TableBook>) em.createNamedQuery("TableBook.findByLatestBooks").setParameter("date",date).getResultList();
+        }catch(NoResultException ex){
+            books = new ArrayList();
+        }
+        
+        return books;
+        
+    }
+    
     
 }

@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "TableAdmin.findByImage", query = "SELECT t FROM TableAdmin t WHERE t.image = :image")
     , @NamedQuery(name = "TableAdmin.findByRole", query = "SELECT t FROM TableAdmin t WHERE t.role = :role")
     , @NamedQuery(name = "TableAdmin.findByStatus", query = "SELECT t FROM TableAdmin t WHERE t.status = :status")})
+    
 public class TableAdmin implements Serializable {
 
     private static final long serialVersionUID = 1L;

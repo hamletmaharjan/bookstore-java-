@@ -42,7 +42,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TableBook.findByPages", query = "SELECT t FROM TableBook t WHERE t.pages = :pages")
     , @NamedQuery(name = "TableBook.findByPublishedDate", query = "SELECT t FROM TableBook t WHERE t.publishedDate = :publishedDate")
     , @NamedQuery(name = "TableBook.findByPublisher", query = "SELECT t FROM TableBook t WHERE t.publisher = :publisher")
-    , @NamedQuery(name = "TableBook.findByCover", query = "SELECT t FROM TableBook t WHERE t.cover = :cover")})
+    , @NamedQuery(name = "TableBook.findByCover", query = "SELECT t FROM TableBook t WHERE t.cover = :cover")
+    , @NamedQuery(name = "TableBook.findByCheapestBooks", query = "SELECT t FROM TableBook t WHERE t.price<= :price")
+    , @NamedQuery(name = "TableBook.findByLatestBooks", query = "SELECT t FROM TableBook t WHERE t.publishedDate >= :date")})
+    
 public class TableBook implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -3,6 +3,8 @@
     Created on : Nov 26, 2019, 6:57:39 PM
     Author     : hams
 --%>
+<%@page import="java.util.List"%>
+<%@page import="edu.kist_bit.bookstore.entity.TableBook"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <h1>hello world</h1>
@@ -20,11 +22,16 @@
                     <h2>Our Latest Product</h2>
                 </div>
                 <div class="l_product_slider owl-carousel">
+                    <% List<TableBook> books = (List<TableBook>) request.getAttribute("books");
+                    int count = 0;
+                    for (TableBook book:books){
+                        count++;
+                    %>
                     
                     <div class="item">
                         <div class="l_product_item">
                             <div class="l_p_img">
-                                <img src="img/product/l-product-1.jpg" alt="">
+                                <img src="uploads/<%out.println(book.getCover());%>" alt="" width="150px" height="350px"2bgggggggggggggggggggg>
                             </div>
                             <div class="l_p_text">
                                 <ul>
@@ -32,59 +39,14 @@
                                     <li><a class="add_cart_btn" href="#">Add To Cart</a></li>
                                     <li class="p_icon"><a href="#"><i class="icon_heart_alt"></i></a></li>
                                 </ul>
-                                <h4>Womens Libero</h4>
-                                <h5><del>$45.50</del>  $40</h5>
+                                <h4><% out.print(book.getTitle());%></h4>
+                                <h5><% out.print(book.getPrice()); %></h5>
                             </div>
                         </div>
                     </div>
-                    <div class="item">
-                        <div class="l_product_item">
-                            <div class="l_p_img">
-                                <img src="img/product/l-product-2.jpg" alt="">
-                            </div>
-                            <div class="l_p_text">
-                               <ul>
-                                    <li class="p_icon"><a href="#"><i class="icon_piechart"></i></a></li>
-                                    <li><a class="add_cart_btn" href="#">Add To Cart</a></li>
-                                    <li class="p_icon"><a href="#"><i class="icon_heart_alt"></i></a></li>
-                                </ul>
-                                <h4>Travel Bags</h4>
-                                <h5><del>$45.50</del>  $40</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="l_product_item">
-                            <div class="l_p_img">
-                                <img src="img/product/l-product-3.jpg" alt="">
-                            </div>
-                            <div class="l_p_text">
-                               <ul>
-                                    <li class="p_icon"><a href="#"><i class="icon_piechart"></i></a></li>
-                                    <li><a class="add_cart_btn" href="#">Add To Cart</a></li>
-                                    <li class="p_icon"><a href="#"><i class="icon_heart_alt"></i></a></li>
-                                </ul>
-                                <h4>Summer Dress</h4>
-                                <h5>$45.05</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="l_product_item">
-                            <div class="l_p_img">
-                                <img src="img/product/l-product-4.jpg" alt="">
-                            </div>
-                            <div class="l_p_text">
-                               <ul>
-                                    <li class="p_icon"><a href="#"><i class="icon_piechart"></i></a></li>
-                                    <li><a class="add_cart_btn" href="#">Add To Cart</a></li>
-                                    <li class="p_icon"><a href="#"><i class="icon_heart_alt"></i></a></li>
-                                </ul>
-                                <h4>Nike Shoes</h4>
-                                <h5><del>$130</del> $110</h5>
-                            </div>
-                        </div>
-                    </div>
+                    <% if(count>=5)
+                        break;
+                    } %>
                 </div>
             </div>
         </section>

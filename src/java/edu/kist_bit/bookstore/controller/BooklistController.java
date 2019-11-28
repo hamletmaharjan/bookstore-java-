@@ -6,7 +6,9 @@
 package edu.kist_bit.bookstore.controller;
 
 import edu.kist_bit.bookstore.entity.TableBook;
+import edu.kist_bit.bookstore.entity.TableOrder;
 import edu.kist_bit.bookstore.services.TableBookJpaController;
+import edu.kist_bit.bookstore.services.TableOrderJpaController;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -43,23 +45,35 @@ public class BooklistController extends HttpServlet {
         TableBookJpaController tableBookJpaController = new TableBookJpaController(emf);
         
         String ref = request.getParameter("ref");
+        List<TableBook> books = null;
+        int totalOrders = 0;
+        List<TableOrder> orders = null;
+         
         switch(ref){
-            case "lb":
+            case "pb":
+                TableOrderJpaController tableOrderJpaController = new TableOrderJpaController(emf);
+                totalOrders = tableOrderJpaController.getTableOrderCount();
+                orders = tableOrderJpaController.findTableOrderEntities();
+                books = tableBookJpaController.findTableBookEntities();
+                request.setAttribute("orders", orders);
+                break;
                 
+            case "lb":
+                books = tableBookJpaController.findLatestBooks();
                 break;
             
             case "cb":
-                List<TableBook> books = tableBookJpaController.getCheapestBooks();
-                request.setAttribute("books", books);
+                books = tableBookJpaController.findCheapestBooks();
                 break;
                 
             case "ab":
+                books = tableBookJpaController.findTableBookEntities();
                 break;
                 
             default:
+                books = tableBookJpaController.findTableBookEntities();
                 break;
         }
-        List<TableBook> books = tableBookJpaController.findTableBookEntities();
         request.setAttribute("books", books);
         
         dispatchRequest(request, response, booklistURL);
