@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author hams
  */
-@WebServlet(name = "PagesController", urlPatterns = {"/dec","/about","/contact"})
+@WebServlet(name = "PagesController", urlPatterns = {"/dec","/about","/contact","/logout"})
 public class PagesController extends HttpServlet {
 
     /**
@@ -41,16 +41,10 @@ public class PagesController extends HttpServlet {
             case "/contact":
                 pageURL = "/WEB-INF/contact.jsp";
                 break;
-            case "/dec":
-                /*
-                String type = request.getParameter("usertype");
-                if(type.equals("customer")){
-                    pageURL = "dashboard";
-                }
-                else{
-                    pageURL = "admindashboard";
-                }
-                */
+            case "/logout":
+                pageURL = "/login.jsp";
+                request.getSession().invalidate();
+                
                 break;
             default:
                 break;

@@ -6,7 +6,7 @@
 
 <%@page import="edu.kist_bit.bookstore.entity.TableAuthor"%>
 <%@page import="java.util.List"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

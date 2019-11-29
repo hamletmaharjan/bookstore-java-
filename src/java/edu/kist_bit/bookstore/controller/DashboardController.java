@@ -42,12 +42,11 @@ public class DashboardController extends HttpServlet {
         
         String servlet = request.getServletPath();
         
-        String dashboardURL = "";
+        String dashboardURL = "/WEB-INF/dashboard.jsp";
         String loginURL = "login.jsp";
         
-        String type = request.getParameter("usertype");
-            if(type.equals("customer")){
-                dashboardURL = "/WEB-INF/dashboard.jsp";
+        
+                
                 TableBookJpaController tableBookJpaController = new TableBookJpaController(emf);
                 List<TableBook> books = tableBookJpaController.findTableBookEntities();
                 request.setAttribute("books", books);
@@ -58,13 +57,7 @@ public class DashboardController extends HttpServlet {
         
         
                 dispatchRequest(request, response, dashboardURL);
-            }
-            
-            if(type.equals("admin")){
-                dashboardURL = "/WEB-INF/admin/dashboard.jsp";
-                dispatchRequest(request, response, dashboardURL);
-                
-            }
+           
         
         //CategoryJpaController catg = new CategoryJpaController(emf);
         //List<Category> category = catg.findCategoryEntities();
