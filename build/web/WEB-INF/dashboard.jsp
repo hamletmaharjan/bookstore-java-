@@ -4,6 +4,8 @@
     Author     : hams
 --%>
 
+<%@page import="edu.kist_bit.bookstore.entity.TableAuthor"%>
+<%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -114,9 +116,10 @@
                                     <h3>Authors</h3>
                                     <ul>
                                         <%
+                                        List<TableAuthor> authors = (List<TableAuthor>) request.getAttribute("authors");
                                         for(int i=0; i<=5; i++){
                                         %>
-                                        <li><a href="#"></a><% out.print("hams");%></li>
+                                        <li><a href="#"></a><% out.print(authors.get(i).getAFirstname()+" "+ authors.get(i).getALastname());%></li>
                                     <%} %>
                                         
                                     </ul>

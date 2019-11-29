@@ -244,22 +244,22 @@ public class AuthenticationFilter implements Filter {
     private boolean checkLogin(HttpServletRequest req, HttpServletResponse resp) throws NoSuchAlgorithmException {
         EntityManagerFactory emf = (EntityManagerFactory) req.getServletContext().getAttribute("BookStoreemf");
         boolean isUserLoggedIn = false;
-        TableAdmin admin = null;
-        TableAdminJpaController tableAdminJpaController = new TableAdminJpaController(emf);
+        TableCustomer customer = null;
+        TableCustomerJpaController tableCustomerJpaController = new TableCustomerJpaController(emf);
         try {
-            admin = tableAdminJpaController.checkLogin(req.getParameter("email"));
+            customer = tableCustomerJpaController.checkLogin(req.getParameter("email"));
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(AuthenticationFilter.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-         if(admin != null){
+         if(customer != null){
             //if(BCrypt.checkpw(req.getParameter("password"),user.getPassword())){
             //String temp = getMd5(req.getParameter("password"));
-            if(req.getParameter("password").equals(admin.getPassword())){
+            if(req.getParameter("password").equals(customer.getCPassword())){
                 
                 isUserLoggedIn = true;
                 HttpSession session = req.getSession();
-                session.setAttribute("loggedInUser", admin);
+                session.setAttribute("loggedInUser", customer);
             }
         }
         return isUserLoggedIn;

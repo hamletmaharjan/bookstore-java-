@@ -262,7 +262,7 @@ public class TableCustomerJpaController implements Serializable {
         EntityManager em = getEntityManager();
         TableCustomer results = null;
         try{
-            results = (TableCustomer) em.createNamedQuery("TableCustomer.findByCEmail").setParameter("email", email).getSingleResult();
+            results = (TableCustomer) em.createNamedQuery("TableCustomer.findByCEmail").setParameter("cEmail", email).getSingleResult();
         }catch(NullPointerException | NoResultException e){
             throw new NonexistentEntityException("the users with username"+email+"no longer eixst");
         }

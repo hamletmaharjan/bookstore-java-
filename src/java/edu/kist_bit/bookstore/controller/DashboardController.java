@@ -5,7 +5,9 @@
  */
 package edu.kist_bit.bookstore.controller;
 
+import edu.kist_bit.bookstore.entity.TableAuthor;
 import edu.kist_bit.bookstore.entity.TableBook;
+import edu.kist_bit.bookstore.services.TableAuthorJpaController;
 import edu.kist_bit.bookstore.services.TableBookJpaController;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -39,21 +41,37 @@ public class DashboardController extends HttpServlet {
         EntityManagerFactory emf =  (EntityManagerFactory) getServletContext().getAttribute("BookStoreemf");
         
         String servlet = request.getServletPath();
-        String dispatchString = "";
-        String dashboardURL = "/WEB-INF/dashboard.jsp";
+        
+        String dashboardURL = "";
         String loginURL = "login.jsp";
+        
+        String type = request.getParameter("usertype");
+            if(type.equals("customer")){
+                dashboardURL = "/WEB-INF/dashboard.jsp";
+                TableBookJpaController tableBookJpaController = new TableBookJpaController(emf);
+                List<TableBook> books = tableBookJpaController.findTableBookEntities();
+                request.setAttribute("books", books);
+        
+                TableAuthorJpaController tableAuthorJpaController = new TableAuthorJpaController(emf);
+                List<TableAuthor> authors = tableAuthorJpaController.findTableAuthorEntities();
+                request.setAttribute("authors", authors);
+        
+        
+                dispatchRequest(request, response, dashboardURL);
+            }
+            
+            if(type.equals("admin")){
+                dashboardURL = "/WEB-INF/admin/dashboard.jsp";
+                dispatchRequest(request, response, dashboardURL);
+                
+            }
         
         //CategoryJpaController catg = new CategoryJpaController(emf);
         //List<Category> category = catg.findCategoryEntities();
         //request.setAttribute("Categories", category);
         
         
-        TableBookJpaController tableBookJpaController = new TableBookJpaController(emf);
-        List<TableBook> books = tableBookJpaController.findTableBookEntities();
-        request.setAttribute("books", books);
         
-        
-        dispatchRequest(request, response, dashboardURL);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -9,6 +9,7 @@
             <file>file:/C:/Users/hams/Documents/NetBeansProjects/BookStore/src/java/edu/kist_bit/bookstore/entity/TableBook.java</file>
             <file>file:/C:/Users/hams/Documents/NetBeansProjects/BookStore/src/java/edu/kist_bit/bookstore/utils/FileUploadUtil.java</file>
             <file>file:/C:/Users/hams/Documents/NetBeansProjects/BookStore/web/META-INF/context.xml</file>
+            <file>file:/C:/Users/hams/Documents/NetBeansProjects/BookStore/src/java/edu/kist_bit/bookstore/controller/AboutController.java</file>
             <file>file:/C:/Users/hams/Documents/NetBeansProjects/BookStore/web/WEB-INF/dashboard.jsp</file>
             <file>file:/C:/Users/hams/Documents/NetBeansProjects/BookStore/src/java/edu/kist_bit/bookstore/controller/ContactController.java</file>
             <file>file:/C:/Users/hams/Documents/NetBeansProjects/BookStore/src/java/edu/kist_bit/bookstore/controller/DashboardController.java</file>
@@ -30,6 +31,7 @@
             <file>file:/C:/Users/hams/Documents/NetBeansProjects/BookStore/src/java/edu/kist_bit/bookstore/filter/AuthenticationFilter.java</file>
             <file>file:/C:/Users/hams/Documents/NetBeansProjects/BookStore/src/java/edu/kist_bit/bookstore/entity/TableCustomer.java</file>
             <file>file:/C:/Users/hams/Documents/NetBeansProjects/BookStore/web/login.jsp</file>
+            <file>file:/C:/Users/hams/Documents/NetBeansProjects/BookStore/src/java/edu/kist_bit/bookstore/entity/TableOrder.java</file>
             <file>file:/C:/Users/hams/Documents/NetBeansProjects/BookStore/src/java/edu/kist_bit/bookstore/controller/BookByCategoriesController.java</file>
             <file>file:/C:/Users/hams/Documents/NetBeansProjects/BookStore/src/java/edu/kist_bit/bookstore/services/TableCartJpaController.java</file>
             <file>file:/C:/Users/hams/Documents/NetBeansProjects/BookStore/web/WEB-INF/jspf/header.jspf</file>
