@@ -39,8 +39,8 @@
                             <span class="menu-arrow arrow_carrot-right"></span>
                         </a>
                         <ul class="sub">
-                            <li><a class="" href="addauthor.php">Add Author</a></li>                          
-                            <li><a class="" href="manageauthors.php">Manage Authors</a></li>
+                            <li><a class="" href="addauthor">Add Author</a></li>                          
+                            <li><a class="" href="manageauthors">Manage Authors</a></li>
                         </ul>
                     </li> 
                     

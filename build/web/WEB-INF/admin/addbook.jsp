@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="layouts/header.jsp" />
 
 <jsp:include page="layouts/sidebar.jsp" />
@@ -30,7 +31,7 @@
                                 User Form 
                               </header>
                               <div class="panel-body">
-                                  <form class="form-horizontal " method="POST" enctype="multipart/form-data">
+                                  <form class="form-horizontal" action="insertbook" method="POST" enctype="multipart/form-data">
                                       <div class="form-group">
                                           <label class="col-sm-2 control-label">Book Title</label>
                                           <div class="col-sm-10">
@@ -47,18 +48,9 @@
                                           <label class="col-sm-2 control-label">Author</label>
                                           <div class="col-sm-10">
                                             <select class="form-control m-bot15" name="author_id">
-                                            	<?php $authors = GetAuthors($conn);
-                                            	
-                                            	if($authors):
-                                            		foreach ($authors as $key => $value):
-                                            		?>
-														<option value="<?php echo $value['a_id'] ?>"><?php echo $value['a_firstname']." ".$value['a_lastname']; ?></option>
-			                                        <?php endforeach;
-
-			                                    else:
-			                                        ?>
-			                                        	<option value="null">no data found</option>
-			                                    <?php endif; ?>
+                                            	<c:forEach var="author" items="${authors}">
+							<option value="${author.AId}">${author.AFirstname} ${author.ALastname}</option>
+                                                </c:forEach>
                                           </select>
                                           </div>
                                       </div>

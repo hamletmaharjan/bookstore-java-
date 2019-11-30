@@ -5,8 +5,13 @@
  */
 package edu.kist_bit.bookstore.controller;
 
+import edu.kist_bit.bookstore.entity.TableAuthor;
+import edu.kist_bit.bookstore.services.TableAuthorJpaController;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigInteger;
+import java.util.List;
+import javax.persistence.EntityManagerFactory;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author hams
  */
-@WebServlet(name = "AdminController", urlPatterns = {"/admin","/adduser","/addbook"})
+@WebServlet(name = "AdminController", urlPatterns = {"/admin","/adduser","/addbook","/insertbook","/addauthor","/insertauthor"})
 @MultipartConfig
 public class AdminController extends HttpServlet {
 
@@ -34,8 +39,10 @@ public class AdminController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        EntityManagerFactory emf =  (EntityManagerFactory) getServletContext().getAttribute("BookStoreemf");
         String redirectURL = "";
-         String servletPath = request.getServletPath();
+        String servletPath = request.getServletPath();
+        TableAuthorJpaController tableAuthorJpaController;
 
         switch (servletPath) {
             case "/admin":
@@ -48,7 +55,23 @@ public class AdminController extends HttpServlet {
                 redirectURL = "/WEB-INF/admin/adduser.jsp";
                 break;
             case "/addbook":
+                tableAuthorJpaController = new TableAuthorJpaController(emf);
+                List<TableAuthor> authors = tableAuthorJpaController.findTableAuthorEntities();
+                request.setAttribute("authors", authors);
                 redirectURL = "/WEB-INF/admin/addbook.jsp";
+                break;
+            case "/insertbook":
+                redirectURL = "/WEB-INF/admin/addbook.jsp";
+                break;
+            case "/addauthor":
+                redirectURL = "/WEB-INF/admin/addauthor.jsp";
+                break;
+            case "/insertauthor":
+                tableAuthorJpaController = new TableAuthorJpaController(emf);
+                TableAuthor createAuthor = getFormData(request);
+                tableAuthorJpaController.create(createAuthor);
+                
+                redirectURL = "/WEB-INF/admin/addauthor.jsp";
                 break;
             default:
                 break;
@@ -97,6 +120,23 @@ public class AdminController extends HttpServlet {
 
     private void dispatchRequest(HttpServletRequest request, HttpServletResponse response, String redirectURL) throws ServletException, IOException {
         request.getRequestDispatcher(redirectURL).forward(request, response);
+    }
+
+    private TableAuthor getFormData(HttpServletRequest request) {
+        TableAuthor author = new TableAuthor();
+        String firstName = request.getParameter("a_firstname");
+        String lastName = request.getParameter("a_lastname");
+        String age =  request.getParameter("age");
+        String email = request.getParameter("email");
+        String contact = request.getParameter("contact");
+        
+        author.setAFirstname(firstName);
+        author.setALastname(lastName);
+        author.setAge(BigInteger.TEN);
+        author.setEmail(email);
+        author.setContact(contact);
+        
+        return author;
     }
 
 }
