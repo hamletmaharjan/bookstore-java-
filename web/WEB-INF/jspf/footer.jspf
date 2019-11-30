@@ -56,7 +56,7 @@
                                     <li><a href="#">Brands</a></li>
                                     <li><a href="#">Gift Vouchers</a></li>
                                     <li><a href="#">Affiliates</a></li>
-                                    <li><a href="#">Specials</a></li>
+                                    <li><a href="admin">Go to admin panel</a></li>
                                 </ul>
                             </aside>
                         </div>
