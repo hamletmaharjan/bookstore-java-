@@ -338,4 +338,27 @@ public class TableBookJpaController implements Serializable {
         
     }
     
+    public TableBook getBookDetailsById(Integer id){
+        
+        EntityManager em = getEntityManager();
+        TableBook books = null;
+        try{
+            books = (TableBook) em.createNamedQuery("TableBook.findBookDetailsById").setParameter("bid", id).getSingleResult();
+        }catch(NoResultException ex){
+            
+        }
+        return books;
+    }
+    public TableBook getBookById(Integer id){
+        
+        EntityManager em = getEntityManager();
+        TableBook books = null;
+        try{
+            books = (TableBook) em.createNamedQuery("TableBook.findByBId").setParameter("bId", id).getSingleResult();
+        }catch(NoResultException ex){
+            
+        }
+        return books;
+    }
+    
 }

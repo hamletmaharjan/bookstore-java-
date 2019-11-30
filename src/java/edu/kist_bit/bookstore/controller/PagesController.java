@@ -6,7 +6,9 @@
 package edu.kist_bit.bookstore.controller;
 
 import edu.kist_bit.bookstore.entity.TableAuthor;
+import edu.kist_bit.bookstore.entity.TableBook;
 import edu.kist_bit.bookstore.services.TableAuthorJpaController;
+import edu.kist_bit.bookstore.services.TableBookJpaController;
 import edu.kist_bit.bookstore.services.exceptions.IllegalOrphanException;
 import edu.kist_bit.bookstore.services.exceptions.NonexistentEntityException;
 import java.io.IOException;
@@ -25,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author hams
  */
-@WebServlet(name = "PagesController", urlPatterns = {"/dec","/about","/contact","/logout","/manageauthors","/deleteauthor"})
+@WebServlet(name = "PagesController", urlPatterns = {"/dec","/about","/contact","/logout","/manageauthors","/deleteauthor","/bookdetails"})
 public class PagesController extends HttpServlet {
 
     /**
@@ -50,6 +52,13 @@ public class PagesController extends HttpServlet {
                 break;
             case "/contact":
                 pageURL = "/WEB-INF/contact.jsp";
+                break;
+            case "/bookdetails":
+                TableBookJpaController tableBookJpaController = new TableBookJpaController(emf);
+                String bookid = request.getParameter("ref");
+                TableBook book = tableBookJpaController.getBookById(Integer.parseInt(bookid));
+                request.setAttribute("book", book);
+                pageURL = "/WEB-INF/bookdetails.jsp";
                 break;
             case "/deleteauthor":
                 String ref = request.getParameter("ref");

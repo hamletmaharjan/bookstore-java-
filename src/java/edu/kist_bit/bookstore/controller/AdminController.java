@@ -5,8 +5,10 @@
  */
 package edu.kist_bit.bookstore.controller;
 
+import edu.kist_bit.bookstore.entity.TableAdmin;
 import edu.kist_bit.bookstore.entity.TableAuthor;
 import edu.kist_bit.bookstore.entity.TableBook;
+import edu.kist_bit.bookstore.services.TableAdminJpaController;
 import edu.kist_bit.bookstore.services.TableAuthorJpaController;
 import edu.kist_bit.bookstore.services.TableBookJpaController;
 import edu.kist_bit.bookstore.services.exceptions.NonexistentEntityException;
@@ -32,7 +34,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author hams
  */
-@WebServlet(name = "AdminController", urlPatterns = {"/admin","/adduser","/addbook","/insertbook","/addauthor","/insertauthor"})
+@WebServlet(name = "AdminController", urlPatterns = {"/admin","/adduser","/addbook","/insertbook","/addauthor","/insertauthor","/adminlogin"})
 @MultipartConfig
 public class AdminController extends HttpServlet {
 
@@ -55,7 +57,15 @@ public class AdminController extends HttpServlet {
         TableBookJpaController tableBookJpaController;
         switch (servletPath) {
             case "/admin":
-                redirectURL = "/WEB-INF/admin/dashboard.jsp";
+                if(verify(request,emf)){
+                    redirectURL = "/WEB-INF/admin/dashboard.jsp";
+                }
+                else{
+                    request.getRequestDispatcher("adminlogin").forward(request, response);
+                }
+                break;
+            case "/adminlogin":
+                redirectURL = "/WEB-INF/admin/adminlogin.jsp";
                 break;
             case "/signup":
                 redirectURL = "signup.jsp";
@@ -189,6 +199,22 @@ public class AdminController extends HttpServlet {
         
         
         return book;
+    }
+
+    private boolean verify(HttpServletRequest request, EntityManagerFactory emf) throws NonexistentEntityException {
+        TableAdminJpaController tableAdminJpaController = new TableAdminJpaController(emf);
+        TableAdmin admin = null;
+        boolean allowedAccess = false;
+        admin = tableAdminJpaController.checkLogin(request.getParameter("email"));
+        if(admin!=null){
+            if(request.getParameter("password").equals(admin.getPassword())){
+                allowedAccess = true;
+            }
+            else{
+                allowedAccess = false;
+            }
+        }
+        return allowedAccess;
     }
 
 }
