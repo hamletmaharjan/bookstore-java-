@@ -259,7 +259,7 @@ public class AuthenticationFilter implements Filter {
                 
                 isUserLoggedIn = true;
                 HttpSession session = req.getSession();
-                session.setAttribute("loggedInUser", customer);
+                session.setAttribute("loggedInUser", customer.getCUsername());
             }
         }
         return isUserLoggedIn;

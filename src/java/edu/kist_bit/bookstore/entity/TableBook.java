@@ -6,6 +6,7 @@
 package edu.kist_bit.bookstore.entity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -156,6 +157,8 @@ public class TableBook implements Serializable {
     public void setAuthorId(TableAuthor authorId) {
         this.authorId = authorId;
     }
+    
+    
 
     @XmlTransient
     public List<TableOrder> getTableOrderList() {

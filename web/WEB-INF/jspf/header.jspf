@@ -10,7 +10,7 @@
         
         <link rel="icon" href="img/fav-icon.png" type="image/x-icon" />
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Persuit</title>
+        <title>BookStore</title>
 
         <!-- Icon css link -->
         <link href="css/font-awesome.min.css" rel="stylesheet">
@@ -74,21 +74,20 @@
                             </ul>
                             <ul class="top_right">
                                 
-                            
+                                <c:choose>
+                                <c:when test="${sessionScope.loggedInUser != null}">
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <%session=request.getSession(false);  
-                                               if (session!= null){
-                                                   out.print(session.getAttribute("loggedInUser"));
-                                                }
-                                               else{
-                                                   out.print("login");
-                                                }%></a>
+                                        <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${sessionScope.loggedInUser}</a>
                                       <div class="dropdown-menu" aria-labelledby="dropdown04">
                                         <a class="dropdown-item" href="logout">Logout</a>
                   <!--                      <a class="dropdown-item" href="wishlist.html">Wishlist</a>                      -->
                                       </div>
                                     </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="nav-item"><a class="nav-link" href="login">Login</a></li>
+                                </c:otherwise>
+                                </c:choose>
                                 <li class="cart"><a href="#"><i class="icon-handbag icons"></i></a></li>
                             </ul>
                         </div>

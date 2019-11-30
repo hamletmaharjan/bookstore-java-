@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -198,6 +199,19 @@ public class TableAuthorJpaController implements Serializable {
         } finally {
             em.close();
         }
+    }
+    
+    public TableAuthor findBooksById(Long id) throws NonexistentEntityException{
+        EntityManager em = getEntityManager();
+        TableAuthor results = null;
+        try{
+            results = (TableAuthor) em.createNamedQuery("TableAuthor.findByAId").setParameter("id", id).getSingleResult();
+        }catch(NullPointerException | NoResultException e){
+            throw new NonexistentEntityException("error");
+        }
+             
+        return results;
+        
     }
     
 }

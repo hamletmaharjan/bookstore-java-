@@ -18,11 +18,11 @@
         <section class="categories_banner_area">
             <div class="container">
                 <div class="c_banner_inner">
-                    <h3>shop grid with left sidebar</h3>
+                    <h3>Categories</h3>
                     <ul>
                         <li><a href="#">Home</a></li>
                         <li><a href="#">Categories</a></li>
-                        <li class="current"><a href="#">Shop Grid with Left Sidebar</a></li>
+                        <li class="current"><a href="#">books by categories</a></li>
                     </ul>
                 </div>
             </div>

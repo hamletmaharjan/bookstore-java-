@@ -5,8 +5,16 @@
  */
 package edu.kist_bit.bookstore.controller;
 
+import edu.kist_bit.bookstore.entity.TableAuthor;
+import edu.kist_bit.bookstore.services.TableAuthorJpaController;
+import edu.kist_bit.bookstore.services.exceptions.IllegalOrphanException;
+import edu.kist_bit.bookstore.services.exceptions.NonexistentEntityException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.persistence.EntityManagerFactory;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author hams
  */
-@WebServlet(name = "PagesController", urlPatterns = {"/dec","/about","/contact","/logout"})
+@WebServlet(name = "PagesController", urlPatterns = {"/dec","/about","/contact","/logout","/manageauthors","/deleteauthor"})
 public class PagesController extends HttpServlet {
 
     /**
@@ -30,9 +38,11 @@ public class PagesController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, IllegalOrphanException, NonexistentEntityException {
         response.setContentType("text/html;charset=UTF-8");
+        EntityManagerFactory emf =  (EntityManagerFactory) getServletContext().getAttribute("BookStoreemf");
         String servlet = request.getServletPath();
+        TableAuthorJpaController tableAuthorJpaController;
         String pageURL = "";
         switch(servlet){
             case "/about":
@@ -40,6 +50,20 @@ public class PagesController extends HttpServlet {
                 break;
             case "/contact":
                 pageURL = "/WEB-INF/contact.jsp";
+                break;
+            case "/deleteauthor":
+                String ref = request.getParameter("ref");
+                Long id = new Long(ref);
+                tableAuthorJpaController = new TableAuthorJpaController(emf);
+                tableAuthorJpaController.destroy(id);
+                
+                pageURL = "/WEB-INF/admin/manageauthors.jsp";
+                break;
+            case "/manageauthors":
+                tableAuthorJpaController = new TableAuthorJpaController(emf);
+                List<TableAuthor> authors = tableAuthorJpaController.findTableAuthorEntities();
+                request.setAttribute("authors", authors);
+                pageURL = "/WEB-INF/admin/manageauthors.jsp";
                 break;
             case "/logout":
                 pageURL = "/login.jsp";
@@ -64,7 +88,13 @@ public class PagesController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (IllegalOrphanException ex) {
+            Logger.getLogger(PagesController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(PagesController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -78,7 +108,13 @@ public class PagesController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (IllegalOrphanException ex) {
+            Logger.getLogger(PagesController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(PagesController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

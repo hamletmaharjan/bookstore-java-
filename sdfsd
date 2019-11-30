@@ -1,0 +1,95 @@
+[33mcommit 9e370f0a7769d804df8f0ac898a80b7eeb719435[m[33m ([m[1;36mHEAD -> [m[1;32mdev[m[33m)[m
+Author: hamlet <imhamlet.hams@gmail.com>
+Date:   Sat Nov 30 14:42:22 2019 +0545
+
+    added add author and somes in add book
+
+[33mcommit b56c41745bf2212b1665f59eb889e099c835bbec[m[33m ([m[1;31morigin/dev[m[33m)[m
+Author: hamlet <imhamlet.hams@gmail.com>
+Date:   Sat Nov 30 12:35:54 2019 +0545
+
+    added admin panel lot to work on
+
+[33mcommit e1311e3930bab881ccb68c94def7fee1160864b6[m
+Author: hamlet <imhamlet.hams@gmail.com>
+Date:   Fri Nov 29 23:28:53 2019 +0545
+
+    login logout
+
+[33mcommit 8588222df0e4b50db6b525ec728a3d3c90e2fe9e[m
+Author: hamlet <imhamlet.hams@gmail.com>
+Date:   Fri Nov 29 21:42:58 2019 +0545
+
+    made significant controller changes
+
+[33mcommit 1e5c0dc209b857d2bb68ff20e6a9e576121e884a[m
+Author: hamlet <imhamlet.hams@gmail.com>
+Date:   Thu Nov 28 19:12:48 2019 +0545
+
+    added categories and about
+
+[33mcommit 99f0b69ae8f10e4ecce6280932afb3dfab14c196[m
+Author: hamlet <imhamlet.hams@gmail.com>
+Date:   Thu Nov 28 18:03:19 2019 +0545
+
+    some changes
+
+[33mcommit 733573374318132119e38aa974c5dbfc915e53ff[m
+Author: hamlet <imhamlet.hams@gmail.com>
+Date:   Wed Nov 27 18:11:34 2019 +0545
+
+    added more pages
+
+[33mcommit 1936f92b52a7ed3e59d731a3c633a5b771f54fa8[m
+Author: hamlet <imhamlet.hams@gmail.com>
+Date:   Wed Nov 27 14:59:55 2019 +0545
+
+    front page is fixed
+
+[33mcommit ab6b12fdcf53f82f1c2ba755b79cbf8e600f70f1[m
+Author: hamlet <imhamlet.hams@gmail.com>
+Date:   Tue Nov 26 21:36:48 2019 +0545
+
+    made changes to directory
+
+[33mcommit 297a644de48be380fae2fa545b072ff9814d5ed0[m
+Author: hamlet <imhamlet.hams@gmail.com>
+Date:   Tue Nov 26 09:17:37 2019 +0545
+
+    little changes
+
+[33mcommit b2644d3209f00eb901ab424504aee5dd17c3abfd[m
+Author: hamlet <imhamlet.hams@gmail.com>
+Date:   Sun Nov 24 16:39:52 2019 +0545
+
+    login worked
+
+[33mcommit 3135d34b2577330d2da4ba96a5cfc844cbc99346[m
+Author: hamlet <imhamlet.hams@gmail.com>
+Date:   Sun Nov 24 16:23:56 2019 +0545
+
+    added jspf and figured out there is problem with checklogin and
+
+[33mcommit 1fffec4b527e00a2828835980d48fc34c5d0611f[m
+Author: hamlet <imhamlet.hams@gmail.com>
+Date:   Sun Nov 24 15:02:11 2019 +0545
+
+    added template
+
+[33mcommit 9b6bd3ac0013f7bf9d7f837476c0f0824ac96868[m[33m ([m[1;32mmaster[m[33m)[m
+Author: hamlet <imhamlet.hams@gmail.com>
+Date:   Fri Nov 22 18:22:24 2019 +0545
+
+    no error in authentication i guess password field need no be changed
+
+[33mcommit 2e6579880b24b165efd7225574ac67a197e22b35[m
+Author: hamlet <imhamlet.hams@gmail.com>
+Date:   Fri Nov 22 17:57:28 2019 +0545
+
+    added authentication filter for customer
+
+[33mcommit 915adbbbbf1118fd82d66c7d7cc81221a96f0681[m
+Author: hamlet <imhamlet.hams@gmail.com>
+Date:   Fri Nov 22 16:46:08 2019 +0545
+
+    initial version
